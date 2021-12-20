@@ -127,14 +127,17 @@ SSH into the control node and follow the steps below:
 * After running the playbook, navigating to http://<elk_vm_public_ip>:5601/app/kibana will allow the Admin to start configuring the dashboard and desired data.
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
-| Action                           | Command                                                                 |
-|----------------------------------|-------------------------------------------------------------------------|
-| make sure ansible is installed   | which ansible or apt install ansible                                    |
-| clone repo                       | git clone https://github.com/jb-williams/elk-stack.git                  |
-| copy files                       | cp -r elk-stack/* /etc/ansible/                                         |
-| run entire deploy                | ansible-playbook /etc/ansible/main.yml                                  |
-| run elk server                   | ansible-playbook /etc/ansible/roles/install-elk/tasks/main.yml          |
-| run dvwa servers                 | ansible-playbook /etc/ansible/roles/install-dvwa/tasks/main.yml         |
-| install filebeat on webservers   | ansible-playbook /etc/ansible/roles/install-filebeat/tasks/main.yml     |
-| install metricbeat on webservers | ansible-playbook /etc/ansible/roles/install-metricbeat/tasks/main.yml   |
+| Action                                  | Command                                                               |
+|-----------------------------------------|-----------------------------------------------------------------------|
+| (if host)make sure ansible is installed | which ansible or apt install ansible                                  |
+| (if docker)pull docker image            | sudo docker pull cyberxsecurity/ansible                               |
+| (if docker)find docker image id         | sudo docker images                                                    |
+| (if docker)run docker with terminal     | sudo docker run -it --name ansible-provisioner <Image_ID> bash        |
+| clone repository                        | git clone https://github.com/jb-williams/elk-stack.git                |
+| copy files to ansible directory         | cp -r elk-stack/* /etc/ansible/                                       |
+| run entire deployment                   | ansible-playbook /etc/ansible/main.yml                                |
+| run elk server                          | ansible-playbook /etc/ansible/roles/install-elk/tasks/main.yml        |
+| run dvwa servers                        | ansible-playbook /etc/ansible/roles/install-dvwa/tasks/main.yml       |
+| install filebeat on webservers          | ansible-playbook /etc/ansible/roles/install-filebeat/tasks/main.yml   |
+| install metricbeat on webservers        | ansible-playbook /etc/ansible/roles/install-metricbeat/tasks/main.yml |
 
