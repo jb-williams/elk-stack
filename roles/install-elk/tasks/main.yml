@@ -1,0 +1,63 @@
+---
+  - name: Config Web VM Elk
+    hosts: elk
+    remote_user: sysadmin
+    become: true
+    tasks:
+
+# Apt Install Docker
+    - name: docker.io
+      apt:
+        update_cache: yes
+        force_apt_get: yes
+        name: docker.io
+        state: present
+
+# Apt Install Pip
+    - name: Install pip3
+      apt:
+        force_apt_get: yes
+        name: python3-pip
+        state: present
+
+# Pip Install Docker Module
+    - name: Install Python Docker Module
+      pip:
+        name: docker
+        state: present
+
+# Increasing Virt Mem
+    - name: Increase the Virt Mem on the Elk VM
+      command: sysctl -w vm.max_map_count=262144
+
+# Making sure it happens on reboot
+    - name: Increase Mem on Reboot
+      shell: echo "vm.max_map_count=262144" >> /etc/sysctl.conf
+
+# Making it use the extra mem
+    - name: Use more Mem
+      sysctl:
+         name: vm.max_map_count
+         value: "262144"
+         state: present
+         reload: yes
+
+# Download and run Docker Elk-Stack
+    - name: download and launch a docker elk container
+      docker_container:
+        name: elk_stack
+        image: sebp/elk:761
+        state: started
+        restart_policy: always
+        published_ports:
+          - 5601:5601
+          - 9200:9200
+          - 5044:5044
+
+# Ensure Docker is Running
+    - name: Enable docker service
+      systemd:
+        name: docker
+        enabled: yes
+                            
+
