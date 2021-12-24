@@ -124,7 +124,6 @@ SSH into the control node and follow the steps below:
 * Updating the parent main.yml, allows for easy desired role designation for certain hosts
 * After running the playbook, navigating to http://<elk_vm_public_ip>:5601/app/kibana will allow the Admin to start configuring the dashboard and desired data.
 
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
 | Action                                        | Command                                                               |
 |-----------------------------------------------|-----------------------------------------------------------------------|
 | (if using host)make sure ansible is installed | which ansible or apt install ansible                                  |
